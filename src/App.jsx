@@ -1,5 +1,5 @@
 import bgImage from "./assets/bg.jpg";
-import CardQuest from "./components/fragments/CardQuestion";
+import Quiz from "./pages/Quiz";
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div style={background()}>
-      <CardQuest/>
+      <Quiz/>
     </div>
   )
 }
