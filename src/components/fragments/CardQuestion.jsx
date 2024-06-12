@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+
 const CardQuest = ({children}) => {
     return (
         <div className="flex justify-center items-center py-12 min-h-screen">

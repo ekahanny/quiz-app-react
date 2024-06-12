@@ -1,8 +1,31 @@
+import { useState } from "react"
 import ChoiceAnswer from "../components/elements/Answer"
 import Number from "../components/elements/Number"
 import CardQuest from "../components/fragments/CardQuestion"
+import { useEffect } from "react"
+import getQuestions from "../services/question.services"
 
-const Quiz = () => {
+const QuizPages = () => {
+
+    const [questions, setQuestions] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getQuestions()
+                setQuestions(data)
+                console.log(data)
+            } catch (error) {
+                console.log("Error fetching data", error)
+            }
+        }
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+        console.log(questions);
+    }, [questions])
+
     return (
         <CardQuest>
             <h1 className="text-white text-center mt-3 font-semibold text-sm">Country Quiz</h1>
@@ -26,7 +49,7 @@ const Quiz = () => {
                         <ChoiceAnswer choice="Austria" />
                     </div>
         </CardQuest>
+
     )
 }
-
-export default Quiz
+export default QuizPages
