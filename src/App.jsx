@@ -1,4 +1,5 @@
 import bgImage from "./assets/bg.jpg";
+// import Categories from "./components/elements/Categories";
 import Quiz from "./pages/Quiz";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div style={background()}>
+      {/* <Categories/> */}
       <Quiz/>
     </div>
   )
