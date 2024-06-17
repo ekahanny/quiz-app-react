@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import ChoiceAnswer from "../components/elements/Answer";
 import Number from "../components/elements/Number";
-import CardQuestion from "../components/fragments/CardQuestion";
+import Card from "../components/fragments/Card";
 import getQuestions from "../services/question.services";
 import { useParams } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const QuizPages = () => {
     };
 
     return (
-        <CardQuestion>
+        <Card>
             <h1 className="text-white text-center mt-3 font-semibold text-sm">{category} Quiz</h1>
             {/* Number of questions */}
             <div className="flex justify-center my-5">
@@ -54,7 +54,7 @@ const QuizPages = () => {
                     <ChoiceAnswer choice={questions[questionIndex].correctAnswer} />
                 )}
             </div>
-        </CardQuestion>
+        </Card>
     );
 };
 
