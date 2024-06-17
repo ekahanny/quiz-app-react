@@ -1,27 +1,32 @@
-// Categories.jsx
 import { useEffect, useState } from "react";
 import CardQuestion from "../fragments/CardQuestion";
 import getCategories from "../../services/categories.service";
+import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
-    const [hoverIndex, setHoverIndex] = useState(null)
+    const [hoverIndex, setHoverIndex] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getCategories()
-                setCategories(data)
-            }catch(err){
-                console.log(err)
+                const data = await getCategories();
+                setCategories(data);
+            } catch (err) {
+                console.log(err);
             }
-        }
-        fetchData()
-    }, [])
+        };
+        fetchData();
+    }, []);
+
+    const handleClickCategory = (category, apiCategory) => {
+        navigate(`/quiz/${category}/${apiCategory}`);
+    };
 
     const hoverBackground = {
         background: 'linear-gradient(#E65895, #BC6BE8)',
-        cursor: 'pointer'
+        cursor: 'pointer',
     };
 
     const defaultBackground = {
@@ -33,13 +38,14 @@ const Categories = () => {
             <h1 className="text-white text-center font-semibold text-2xl italic mt-5 tracking-wide">Choose Category</h1>
             <div className="grid grid-cols-2 gap-6 py-10 rounded-lg">
                 {Object.keys(categories).map((category, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         className="p-4 rounded-lg shadow-md"
                         style={hoverIndex === index ? hoverBackground : defaultBackground}
                         onMouseOver={() => setHoverIndex(index)}
                         onMouseOut={() => setHoverIndex(null)}
-                        >
+                        onClick={() => handleClickCategory(category, categories[category][0])}
+                    >
                         <h1 className="text-white text-sm text-center font-semibold">{category}</h1>
                     </div>
                 ))}
