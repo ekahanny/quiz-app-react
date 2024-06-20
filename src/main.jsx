@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Categories from './components/elements/Categories.jsx';
+import Categories from './pages/Categories.jsx';
 import bgImage from "./assets/bg.jpg";
 import QuizPages from './pages/Quiz';
 import App from './App';

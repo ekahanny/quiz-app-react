@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import ChoiceAnswer from "../components/elements/Answer";
 import Number from "../components/elements/Number";
-import Card from "../components/fragments/Card";
+import Card from "../components/elements/Card";
 import getQuestions from "../services/question.services";
 import { useParams } from "react-router-dom";
 

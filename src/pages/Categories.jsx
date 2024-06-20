@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Card from "../fragments/Card";
-import getCategories from "../../services/categories.service";
+import Card from "../components/elements/Card";
+import getCategories from "../services/categories.service";
 import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
