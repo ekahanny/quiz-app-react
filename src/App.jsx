@@ -1,6 +1,12 @@
+import { useState } from "react";
 import Card from "./components/elements/Card";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+
+  const [name, setName] = useState("")
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const fontStyle = () => {
     return {
@@ -14,17 +20,40 @@ function App() {
     }
   }
 
+  const handleChange = (e) => {
+    setName(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    localStorage.setItem("name", name)
+    setLoading(true)
+    setTimeout(() => {
+      navigate("/categories")
+    }, 2000)
+  }
+
   return (
       <Card>
-        <div className="flex flex-col items-center justify-center absolute inset-0">
-          <h1 style={fontStyle()}>Quiz App</h1>
-          <input 
-            type="text" 
-            placeholder="Enter your name" 
-            className="w-full max-w-xs my-8 bg-transparent border-b-2 border-[#F27BBD] text-[#F27BBD] placeholder-[#F27BBD] p-2 text-center	focus:outline-none"
-          />
-          <button className="btn btn-outline btn-secondary mt-2">Secondary</button>
-        </div>
+        {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+                <span className="loading loading-spinner text-primary w-10 h-10"></span>
+            </div> 
+        ) : (
+            <div className="flex flex-col items-center justify-center absolute inset-0">
+              <h1 style={fontStyle()}>Quiz App</h1>
+              <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
+                <input 
+                  name="name"
+                  type="text" 
+                  placeholder="Enter your name" 
+                  onChange={handleChange}
+                  className="w-full max-w-xs my-8 bg-transparent border-b-2 border-[#F27BBD] text-[#F27BBD] placeholder-[#F27BBD] p-2 text-center	focus:outline-none"
+                />
+                <button type="submit" className="btn btn-outline btn-secondary mt-2">Start</button>
+              </form>
+            </div>
+        )}
       </Card>
   )
 }
