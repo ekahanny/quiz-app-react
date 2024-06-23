@@ -30,6 +30,9 @@ const QuizPages = () => {
 
   const handleClickAnswer = (choice) => {
     setSelectedAnswer(choice)
+    setTimeout(() => {
+      setQuestionIndex(questionIndex + 1)
+    }, 1000)
   };
 
   return (
