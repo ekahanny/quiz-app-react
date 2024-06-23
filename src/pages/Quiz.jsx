@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ChoiceAnswer from "../components/elements/Answer";
+import ChoiceAnswer from "../components/elements/ChoiceAnswer";
 import Number from "../components/elements/Number";
 import Card from "../components/elements/Card";
 import getQuestions from "../services/question.services";
@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 const QuizPages = () => {
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
   const { category, apiCategory } = useParams();
 
   useEffect(() => {
@@ -27,8 +28,8 @@ const QuizPages = () => {
     setQuestionIndex(index);
   };
 
-  const handleClickAnswer = (answer) => {
-    console.log("Selected answer:", answer);
+  const handleClickAnswer = (choice) => {
+    setSelectedAnswer(choice)
   };
 
   return (
@@ -60,12 +61,16 @@ const QuizPages = () => {
               key={index}
               choice={choice}
               onClick={() => handleClickAnswer(choice)}
+              isSelected={selectedAnswer === choice}
+              isCorrect={false}
             />
           ))}
         {questions.length > 0 && (
           <ChoiceAnswer
             choice={questions[questionIndex].correctAnswer}
             onClick={() => handleClickAnswer(questions[questionIndex].correctAnswer)}
+            isSelected={selectedAnswer === questions[questionIndex].correctAnswer}
+            isCorrect={true}
           />
         )}
       </div>
