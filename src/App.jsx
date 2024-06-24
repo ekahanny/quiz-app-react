@@ -49,6 +49,7 @@ function App() {
                   placeholder="Enter your name" 
                   onChange={handleChange}
                   className="w-full max-w-xs my-8 bg-transparent border-b-2 border-[#F27BBD] text-[#F27BBD] placeholder-[#F27BBD] p-2 text-center	focus:outline-none"
+                  required
                 />
                 <button type="submit" className="btn btn-outline btn-secondary mt-2">Start</button>
               </form>
