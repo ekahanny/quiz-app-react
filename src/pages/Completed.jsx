@@ -7,6 +7,9 @@ const Completed = () => {
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+
+    const nameLocal = localStorage.getItem("name")
+    const name = nameLocal.charAt(0).toUpperCase() + nameLocal.slice(1)
     
     const setActiveColor = () => {
         return {
@@ -31,7 +34,7 @@ const Completed = () => {
             ) : (
                 <div className="flex flex-col justify-center items-center" >
                     <Congrats/>
-                    <h1 className="text-2xl text-white mt-10">Congrats! You completed the quiz.</h1>
+                    <h1 className="text-2xl text-white mt-10">Congrats {name}! You completed the quiz.</h1>
                     <p className="text-xl text-white mt-6">You answer 4/10 correctly.</p>
                     <button 
                         type="button"
