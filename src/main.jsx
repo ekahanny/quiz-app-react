@@ -6,6 +6,7 @@ import Categories from './pages/Categories.jsx';
 import bgImage from "./assets/bg.jpg";
 import QuizPages from './pages/Quiz';
 import App from './App';
+import Completed from './pages/Completed';
 
 
 const background = () => {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/quiz/:category/:apiCategory',
     element: <QuizPages />
+  },
+  {
+    path: '/completed',
+    element: <Completed />
   },
 ]);
 
