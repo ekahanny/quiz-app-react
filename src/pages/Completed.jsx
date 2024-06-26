@@ -1,12 +1,14 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, } from "react-router-dom"
 import Card from "../components/elements/Card"
 import Congrats from "../components/elements/Congrats"
 import { useState } from "react"
 
 const Completed = () => {
 
-    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const {state} = useLocation()
+    const correctAnswer = state?.correctAnswer || 0;
 
     const nameLocal = localStorage.getItem("name")
     const name = nameLocal.charAt(0).toUpperCase() + nameLocal.slice(1)
@@ -35,7 +37,7 @@ const Completed = () => {
                 <div className="flex flex-col justify-center items-center" >
                     <Congrats/>
                     <h1 className="text-2xl text-white mt-10">Congrats {name}! You completed the quiz.</h1>
-                    <p className="text-xl text-white mt-6">You answer 4/10 correctly.</p>
+                    <p className="text-xl text-white mt-6">You answer {correctAnswer}/10 correctly.</p>
                     <button 
                         type="button"
                         className="py-2 px-6 text-white font-semibold text-md mt-10 rounded-md"

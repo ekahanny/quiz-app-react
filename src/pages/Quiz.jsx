@@ -9,6 +9,7 @@ const QuizPages = () => {
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [correctAnswer, setCorrectAnswer] = useState(0)
   const { category, apiCategory } = useParams();
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -31,18 +32,24 @@ const QuizPages = () => {
   };
 
   const handleClickAnswer = (choice) => {
-    setSelectedAnswer(choice)
-    setTimeout(() => {
-      setQuestionIndex(questionIndex + 1)
-      if (questionIndex + 1 >= questions.length) {
-        setLoading(true)
-        setTimeout(() => {
-          navigate("/completed")
-        }, 2000);
+    setSelectedAnswer(choice);
+    let isCorrect = choice === questions[questionIndex].correctAnswer;
+
+    setTimeout(() => { 
+      if (isCorrect) {
+        setCorrectAnswer(prev => prev + 1);
       }
-    }, 1000)
 
-
+      if (questionIndex + 1 >= questions.length) {
+        setLoading(true);
+        setTimeout(() => {
+          navigate("/completed", { state: { correctAnswer: isCorrect ? correctAnswer + 1 : correctAnswer } });
+        }, 2000);
+      } else {
+        setQuestionIndex(prev => prev + 1);
+        setSelectedAnswer(null);
+      }
+    }, 1000);
   };
 
   return (
