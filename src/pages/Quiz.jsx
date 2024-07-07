@@ -10,6 +10,7 @@ const QuizPages = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [correctAnswer, setCorrectAnswer] = useState(0)
+  const [answerChoice, setAnswerChoice] = useState([])
   const { category, apiCategory } = useParams();
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -25,7 +26,31 @@ const QuizPages = () => {
       }
     };
     fetchData();
-  }, [apiCategory]);
+  }, [apiCategory])
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const shuffleAnswerChoices = () => {
+    const currentQuestion = questions[questionIndex];
+    if (currentQuestion && currentQuestion.incorrectAnswers) {
+      const allChoices = [...currentQuestion.incorrectAnswers, currentQuestion.correctAnswer];
+      setAnswerChoice(shuffleArray(allChoices));
+    }
+  };
+
+  useEffect(() => {
+    if (questions.length >= 0) {
+      shuffleAnswerChoices()
+    }
+  }, [questionIndex, questions])
+
+
 
   const handleNumberOfQuestion = (index) => {
     setQuestionIndex(index);
@@ -81,24 +106,16 @@ const QuizPages = () => {
 
             {/* Choice Answer */}
             <div className="grid grid-cols-2 gap-4 mx-28 my-10">
-              {questions.length > 0 &&
-                questions[questionIndex].incorrectAnswers.map((choice, index) => (
-                  <ChoiceAnswer
-                    key={index}
-                    choice={choice}
-                    onClick={() => handleClickAnswer(choice)}
-                    isSelected={selectedAnswer === choice}
-                    isCorrect={false}
-                  />
-                ))}
-              {questions.length > 0 && (
+
+              {answerChoice.map((choice, index) => (
                 <ChoiceAnswer
-                  choice={questions[questionIndex].correctAnswer}
-                  onClick={() => handleClickAnswer(questions[questionIndex].correctAnswer)}
-                  isSelected={selectedAnswer === questions[questionIndex].correctAnswer}
-                  isCorrect={true}
+                  key={index}
+                  choice={choice}
+                  onClick={() => handleClickAnswer(choice)}
+                  isSelected={selectedAnswer === choice}
+                  isCorrect={questions[questionIndex].correctAnswer === choice} 
                 />
-              )}
+              ))}
             </div>
           </div>
       )}
